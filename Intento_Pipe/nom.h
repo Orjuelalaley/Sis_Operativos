@@ -6,21 +6,26 @@
 #define NSUSCR 20
 #define TRUE 1
 #define FALSE 0
-// Estructuras para que el suscriptor en vie el nombre del topico. 
-typedef  struct data {
+// Estructuras para que el suscriptor en vie el nombre del topico.
+typedef struct data
+{
   char segundopipe[TAMNOMBRE];
-    int pid;
-    int topico;
+  int pid;
+  char topico;
 } datap;
 
-typedef  struct data1 {
-    int pid;
-    int topico;
+typedef struct data1
+{
+  int pid;
+  char topico;
 } topicos;
 
 // Estructura para que el o los publicadores envien noticias
 
-typedef  struct new {
+typedef struct new
+{
+  char topico;
   char noticia[TAMNEW];
-    int topico;
-} newp;
+  
+}
+newp;

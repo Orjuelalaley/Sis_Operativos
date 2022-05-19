@@ -10,8 +10,13 @@
 
 int main(int argc, char const *argv[])
 {
-    char abeja[30];
+    if (argc != 2)
+    {
+        perror("Numero de argumentos invalidos");
+        exit(0);
+    }
     int rc;
+    newp noti;
     printf("Abriendo el pipe...\n");
     int fd = open(argv[1], O_RDONLY);
     if (fd == -1)
@@ -25,13 +30,13 @@ int main(int argc, char const *argv[])
     }
     do
     {
-        if (rc = read(fd, abeja, sizeof(abeja)) == -1)
+        if (rc = read(fd, &noti, sizeof(newp)) == -1)
         {
             perror("pipe no leido correctamente");
         }
         else
         {
-            printf("Received data: %s\n", abeja);
+            printf("Received data: %s\n", noti.noticia);
         }
 
     } while (rc > 0);

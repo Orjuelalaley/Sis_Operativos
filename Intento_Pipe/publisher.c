@@ -10,11 +10,18 @@
 
 int main(int argc, char const *argv[])
 {
+    if (argc != 2)
+    {
+        perror("Numero de argumentos invalidos");
+        exit(0);
+    }
+    
     mode_t fifo_mode = S_IRUSR | S_IWUSR;
     newp noti;
     int creado = 0;
-    char topico = 'C';
-    char topico2 = 'S';
+    char topico = "B";
+    char topico2 = "c";
+    int fd;
     char *mensajes1[] = {"Biologia", "La vegetacion es exuberante", "Animales", "Zorro", "El Loro"};
     char *mensajes2[] = {"Petro", "pais en elecciones", "Fico en Medellin", "Fajardo quedo de tercero", "Pronto Elegimos"};
 
@@ -26,10 +33,10 @@ int main(int argc, char const *argv[])
             return 1;
         }
     }
-    printf("Abriendo el Publicador pipe...\n");
+    printf("Abriendo el pipe Publicador...\n");
     do
     {
-        int fd = open(argv[1], O_WRONLY);
+        fd = open(argv[1], O_WRONLY);
         if (fd == -1)
         {
             perror("no se pudo abrir el pipe de envio\n");
@@ -41,25 +48,39 @@ int main(int argc, char const *argv[])
             creado = 1;
             printf("Pipe abierto correctamente...\n");
         }
-    }while (creado == 0);
+    } while (creado == 0);
 
-    thenews.contenido = noticia;
-    thenews.tipo = topico;
+    
+    
 
     for (int i = 0; i < NNOTICIAS; i++)
     {
-        /* code */
-    }
-    
+        strcpy(noti.noticia, mensajes1[i]);
+        if (write(fd, &noti, sizeof(newp)) == -1)
+        {
+            
+            perror("error al escribir en el pipe\n");
+            return 2;
+        }
+        else
+        {
+            
+            printf("Pipe escrito correctamente\n");
+            sleep(2);
+        }
+        strcpy(noti.noticia, mensajes2[i]);
+        if (write(fd, &noti, sizeof(newp)) == -1)
+        {
+            
+            perror("error al escribir en el pipe\n");
+            return 2;
+        }
+        else
+        {
+            printf("Pipe escrito correctamente\n");
+            sleep(2);
+        }
 
-    if (write(fd, noticia, sizeof(noticia)) == -1)
-    {
-        perror("error al escribir en el pipe\n");
-        return 2;
-    }
-    else
-    {
-        printf("Pipe escrito correctamente\n");
     }
     close(fd);
     printf("Pipe cerrado con exito\n");
