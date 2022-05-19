@@ -19,8 +19,6 @@ int main(int argc, char const *argv[])
     mode_t fifo_mode = S_IRUSR | S_IWUSR;
     newp noti;
     int creado = 0;
-    char topico = "B";
-    char topico2 = "c";
     int fd;
     char *mensajes1[] = {"Biologia", "La vegetacion es exuberante", "Animales", "Zorro", "El Loro"};
     char *mensajes2[] = {"Petro", "pais en elecciones", "Fico en Medellin", "Fajardo quedo de tercero", "Pronto Elegimos"};
@@ -33,7 +31,7 @@ int main(int argc, char const *argv[])
             return 1;
         }
     }
-    printf("Abriendo el pipe Publicador...\n");
+    printf("Creando el pipe Publicador...\n");
     do
     {
         fd = open(argv[1], O_WRONLY);
@@ -64,10 +62,10 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            
             printf("Pipe escrito correctamente\n");
             sleep(2);
         }
+        
         strcpy(noti.noticia, mensajes2[i]);
         if (write(fd, &noti, sizeof(newp)) == -1)
         {
@@ -80,6 +78,7 @@ int main(int argc, char const *argv[])
             printf("Pipe escrito correctamente\n");
             sleep(2);
         }
+        
 
     }
     close(fd);

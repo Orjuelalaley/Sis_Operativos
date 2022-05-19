@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     }
     int rc;
     newp noti;
-    printf("Abriendo el pipe...\n");
+    printf("Abriendo el pipe del publicador...\n");
     int fd = open(argv[1], O_RDONLY);
     if (fd == -1)
     {
@@ -28,18 +28,21 @@ int main(int argc, char const *argv[])
     {
         printf("Pipe abierto correctamente...\n");
     }
+
     do
     {
-        if (rc = read(fd, &noti, sizeof(newp)) == -1)
+        rc = read(fd, &noti, sizeof(newp)); // recordar validar llamadas al sistema
+        if (rc == 0)
         {
-            perror("pipe no leido correctamente");
+            printf("Lectura del pipe Publicador completada\n");
+            break;
         }
         else
         {
             printf("Received data: %s\n", noti.noticia);
         }
-
     } while (rc > 0);
+    unlink(argv[1]);
     close(fd);
 
     return 0;
