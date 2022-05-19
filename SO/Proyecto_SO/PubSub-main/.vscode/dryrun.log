@@ -1,0 +1,10 @@
+make all --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/linuxmachine/Documents/SO/SO/Proyecto_SO/PubSub-main'
+gcc -c publicador.c
+gcc -o publicador publicador.o
+gcc -c suscriptor.c
+gcc -o suscriptor suscriptor.o
+gcc -c central.c -pthread
+gcc -o central central.o -pthread
+make: Leaving directory '/home/linuxmachine/Documents/SO/SO/Proyecto_SO/PubSub-main'
+ 
