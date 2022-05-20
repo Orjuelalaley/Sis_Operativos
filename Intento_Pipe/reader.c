@@ -40,6 +40,7 @@ int main(int argc, char const *argv[])
         else
         {
             printf("Received data: %s\n", noti.noticia);
+            printf("Received data : %c\n",noti.topico);
         }
     } while (rc > 0);
     unlink(argv[1]);

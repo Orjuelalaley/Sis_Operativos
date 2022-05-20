@@ -16,10 +16,14 @@ int main(int argc, char const *argv[])
         exit(0);
     }
     
+
+
     mode_t fifo_mode = S_IRUSR | S_IWUSR;
     newp noti;
     int creado = 0;
     int fd;
+    char tema;
+    char tema2;
     char *mensajes1[] = {"Biologia", "La vegetacion es exuberante", "Animales", "Zorro", "El Loro"};
     char *mensajes2[] = {"Petro", "pais en elecciones", "Fico en Medellin", "Fajardo quedo de tercero", "Pronto Elegimos"};
 
@@ -54,6 +58,9 @@ int main(int argc, char const *argv[])
     for (int i = 0; i < NNOTICIAS; i++)
     {
         strcpy(noti.noticia, mensajes1[i]);
+        tema = 'B';
+        tema2 = 'P';
+        noti.topico = tema;
         if (write(fd, &noti, sizeof(newp)) == -1)
         {
             
@@ -65,8 +72,8 @@ int main(int argc, char const *argv[])
             printf("Pipe escrito correctamente\n");
             sleep(2);
         }
-        
         strcpy(noti.noticia, mensajes2[i]);
+        noti.topico = tema2;
         if (write(fd, &noti, sizeof(newp)) == -1)
         {
             

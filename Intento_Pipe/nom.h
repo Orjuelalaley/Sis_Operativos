@@ -26,6 +26,4 @@ typedef struct new
 {
   char topico;
   char noticia[TAMNEW];
-  
-}
-newp;
+} newp;
